@@ -34,7 +34,7 @@ Font_Rect Font_string_dimensions(const struct Font *font, const char *str, size_
 			break;
 
 		default:
-			x+=Font_Char_width(font->map[str[i]], size)+size/font->height*font->h_kern;
+			x+=Font_Char_width(font->map[(size_t)str[i]], size)+size/font->height*font->h_kern;
 		}
 	}
 	rect.width= x>rect.width ? x : rect.width;
