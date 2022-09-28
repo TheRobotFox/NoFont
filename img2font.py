@@ -6,7 +6,8 @@ if len(sys.argv)!=3:
 	print("Usage: [INPUT IMG] [CHARSET]")
 	exit(0)
 
-name = (sys.argv[1].split(".")[0]).lower()
+name = (sys.argv[1].replace("\\","/").split("/")[-1].split(".")[0]).lower()
+path = "/".join(sys.argv[0].replace("\\","/").split("/")[:-1])
 output = "Font."+name+".h"
 
 settings = {"h_kern" : ["Horizontal Kerning multiplier", 1.4],
@@ -91,7 +92,7 @@ for key in settings:
 	header.write(f"#define {key.upper()} {str(settings[key][1])} \t// {settings[key][0]}\n")
 
 #include driver
-header.write("\n#include \"Font_Driver.h\"\n")
+header.write(f"\n#include \"{path}Font_Driver.h\"\n")
 
 
 #write raw buffer
