@@ -92,7 +92,7 @@ for key in settings:
 	header.write(f"#define {key.upper()} {str(settings[key][1])} \t// {settings[key][0]}\n")
 
 #include driver
-header.write(f"\n#include \"{path}Font_Driver.h\"\n")
+header.write(f"\n#include \"{path}/Font_Driver.h\"\n")
 
 
 #write raw buffer
