@@ -9,8 +9,8 @@ if len(sys.argv)!=3:
 name = (sys.argv[1].split(".")[0]).lower()
 output = "Font."+name+".h"
 
-settings = {"h_kern" : ["Horizontal Kerning multiplier", 1.6],
-			"v_kern" : ["Vertical Kerning multiplier", 1.6],
+settings = {"h_kern" : ["Horizontal Kerning multiplier", 1.4],
+			"v_kern" : ["Vertical Kerning multiplier", 1.4],
 			"space_width" : ["Space width in units", 3]}
 
 def getChar(img, start):
