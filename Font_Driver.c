@@ -55,9 +55,7 @@ int Font_Char_render_rect(const struct Font_Char *Char, int x, int y, int size, 
 		return callback(&rect, arg);
 	}
 
-	float pixel_size = (float)size/Char->height,
-		  r_x = 0,
-		  r_y = 0;
+	float pixel_size = (float)size/Char->height;
 
 	int index;
 	for(int c_y=0; c_y<Char->height; c_y++)
@@ -108,7 +106,7 @@ int Font_render_string_rect(struct Font *font, const char *str, size_t len, int 
 				int ret = Font_render_char_rect(font, str[i], x, y, size, callback, arg);
 				if(ret)
 					return i;
-				x+=Font_Char_width(font->map[str[i]], size)+size/font->height*font->h_kern;
+				x+=Font_Char_width(font->map[(size_t)str[i]], size)+size/font->height*font->h_kern;
 			}
 		}
 	}
