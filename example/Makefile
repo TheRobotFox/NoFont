@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Wpedantic
 
-SOURCE= $(wildcard *.c)
+SOURCE=test.c Bitmap.c ../Font_Driver.c
 OBJECTS=$(SOURCE:%.c=%.o)
 
 Test: $(SOURCE)

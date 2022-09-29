@@ -1,1 +1,1 @@
-python3 ../img2font.py Font.bmp "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()[]{}!?\"=/\'+-*#.,"
+python3 ../img2font.py Font.bmp "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890()[]{}!?\"=/\'+-*#.,_" true

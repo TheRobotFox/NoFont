@@ -2,13 +2,21 @@ from PIL import Image
 import sys
 import numpy
 
-if len(sys.argv)!=3:
-	print("Usage: [INPUT IMG] [CHARSET]")
+if len(sys.argv)<3 or len(sys.argv)>4:
+	print("Usage: [INPUT IMG] [CHARSET] (SINGLE_CASE)")
 	exit(0)
 
 name = (sys.argv[1].replace("\\","/").split("/")[-1].split(".")[0]).lower()
 path = "/".join(sys.argv[0].replace("\\","/").split("/")[:-1])
 output = "Font."+name+".h"
+
+
+if len(sys.argv)==4:
+	charset = sys.argv[2].lower()
+	single_case = sys.argv[3].lower()=="true"
+else:
+	charset = sys.argv[2]
+	single_case=False
 
 settings = {"h_kern" : ["Horizontal Kerning multiplier", 1.4],
 			"v_kern" : ["Vertical Kerning multiplier", 1.4],
@@ -33,6 +41,10 @@ def getChar(img, start):
 		print("ERROR: INPUT FALFOREMD")
 		exit(0)
 	return x+1
+
+
+if single_case=="true":
+	charset=charset.lower()
 
 try:
 	img = numpy.asarray(Image.open(sys.argv[1]).convert("1"))
@@ -79,9 +91,8 @@ while start<len(img[0])-1:
 	start=end+2
 
 
-
-if len(chars)!=len(sys.argv[2]):
-	print(f"Length does not match: Chars[{len(chars)}] CHARSET[{len(sys.argv[2])}]")
+if len(chars)!=len(charset):
+	print(f"Length does not match: Chars[{len(chars)}] CHARSET[{len(charset)}]")
 
 
 #header guard
@@ -114,13 +125,15 @@ header.write("};\n\n")
 
 #create charset map
 print([i for i in sys.argv[2]])
-ords = [ord(i) for i in sys.argv[2]]
+ords = [ord(i) for i in charset]
 largest = max(ords)
 
 maping = []
 for i in range(largest+1):
 	if i in ords:
-		maping.append(f"charset+{ords.index(i)} /* " + chr(i) + "|" + str(i) + " */")
+		maping.append(f"charset+{charset.index(chr(i))} /* " + chr(i) + "|" + str(i) + " */")
+	elif single_case and charset.count(chr(i).lower()):
+		maping.append(f"charset+{charset.index(chr(i).lower())} /* " + chr(i) + "|" + str(i) + " */")
 	else:
 		maping.append("0")
 
