@@ -8,7 +8,7 @@ if len(sys.argv)<3 or len(sys.argv)>4:
 
 name = (sys.argv[1].replace("\\","/").split("/")[-1].split(".")[0]).lower()
 path = "/".join(sys.argv[0].replace("\\","/").split("/")[:-1])
-output = "Font."+name+".c"
+output = "Font."+name+".h"
 
 
 if len(sys.argv)==4:
